@@ -1,0 +1,88 @@
+/* Контейнера */
+.container {
+	max-width: 1100px;
+	margin: 0 auto;
+}
+.container {
+	border: 6px double #9451bb;
+}
+header, footer {
+	background-color: #9451bb;
+}
+/* навигации горна */
+.topnav {
+	text-align: center;
+}
+.topnav a{
+	padding: 1%;
+}
+/* линкове в двете навигации */
+a, span {
+	text-decoration: none;
+	color: white;
+}
+/* a {
+	padding: 1%;
+} */
+/* Общи стилизации за таблиците */
+tr, th, td {
+	border: 1px solid black;
+} 
+caption {
+	font-style: italic;
+}
+/* Форма */
+form {
+	width: 30%;
+	margin: 30px auto;
+}
+form>table {
+	border: 6px ridge #9451bb;
+}
+
+input[type="text"], textarea {
+	width: 98%;
+}
+.receiver {
+	width: 100%;
+}
+.firstTable th {
+	text-align: left;
+}
+
+/* Втора таблица */
+.secondTable {
+	width: 45%;
+	margin: 0 auto;
+}
+.secondTable th{
+	background-color: lightgray;
+}
+.secondTable tr:hover {
+	background-color: #9451bb;
+}
+/* Таблица за преглед на съобщенията */
+.viewFullMsg {
+	width: 50%;
+	margin: 30px auto;
+}
+.viewFullMsg tr {
+	width: 100%;
+}
+/* SVG */
+.svgdiv {
+	width: 45%;
+	margin: 30px auto;
+}
+/* Footer */
+.floting{
+	float: right;
+}
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.unread {
+	font-weight: bold;
+}

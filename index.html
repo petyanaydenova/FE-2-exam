@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Final</title>
+		<link rel="stylesheet" href="css/style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<nav class="topnav">
+					<a href="#">Начало</a>
+					<a href="#">Галерия</a>
+					<a href="#">FAQ</a>
+					<a href="#">За нас</a>
+					<a href="#">Край</a>
+				</nav>
+			</header>
+			<main>
+				<div>
+					<form action="index.html" method="POST" enctype="multipart/form-data">
+						<table class="firstTable">	
+							<caption>Изпращане на съобщение</caption>
+							<tr>
+								<th>
+									<label for="receiver">Получател</label>
+								</th>
+								<td>
+									<select name="receiver" id="receiver" required="required" multiple="multiple" class="receiver" size="2">
+										<option value="first_receiver">Получател 1</option>
+										<option value="second_receiver">Получател 2</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label for="senderName">Подател</label>
+								</th>
+								<td>
+									<input type="text" name="sender_name" id="senderName" required="required" placeholder="Джон Доу" />
+								</td>
+							</tr>
+							<tr>
+								<th colspan="2">
+									<label for="emailMsg">Съобщение</label> <br />
+								</th>
+							</tr>
+							<tr>
+								<th>
+									<label for="about">Относно</label> <br />
+								</th>
+								<td>
+									<input type="text" name="sender_name" id="about" required="required" placeholder="Въведи заглавие" />
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label for="date">Дата</label>
+								</th>
+								<td>
+									<input type="date" class="fullWidth" id="date" required="required" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<textarea name="email_msg" id="emailMsg" cols="10" rows="5" placeholder="Ще си взема изпита днес :)" required="required"></textarea> <!-- да задам редовете и колоните с CSS -->
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="clearfix">
+									<input type="button" id="pasteCopiedMsg" value="Постави" />
+									<input type="button" onclick="saveMsg();" value="Изпрати" class="floting" />
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="firstTable" style="text-align:center;" id="buttons">
+					<input type="button" value="Покажи всички съобщения" onclick="showAllMsgs();" />
+					<input type="button" value="Запази масива" onclick="saveMsgsToLocal();" />
+					<input type="button" value="Последна версия" onclick="getLastSaveMsgs();" />
+				</div>
+				<div class="firstTable" id="inbox">
+					
+				</div>
+				<div class="firstTable" id="fullMsg">
+					
+				</div>
+				<!-- <div>
+					<table class="secondTable">
+						<caption>Таблица съобщения</caption>
+						<tr>
+							<th></th>
+							<th>Подател</th>
+							<th>Относно</th>
+							<th>Прочетено</th>
+						</tr>
+						<tr>
+							<td>
+								<input type="button" value="Виж">
+							</td>
+							<td>Иван Иванов</td>
+							<td>Купувам ракия</td>
+							<td>Не</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="button" value="Виж">
+							</td>
+							<td>Петър Петров</td>
+							<td>Продавам череши</td>
+							<td>Да</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="button" value="Виж">
+							</td>
+							<td>Тодор Тодоров</td>
+							<td>Правя компоти</td>
+							<td>Да</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="button" value="Виж">
+							</td>
+							<td>Христо Христов</td>
+							<td>И аз не знам, какво правя</td>
+							<td>Да</td>
+						</tr>
+					</table>
+				</div>
+				<div></div>
+				<div></div> -->
+				<div class="svgdiv">
+					<svg height="150" width="500">
+						<title>SVG</title>
+						<desc>
+							<p class="warning">Sorry, your browser does not support inline SVG.</p>
+						</desc>
+						<ellipse cx="240" cy="100" rx="220" ry="30" style="fill:#9451bb " />
+						<ellipse cx="220" cy="70" rx="190" ry="20" style="fill:lightgrey" />
+						<ellipse cx="210" cy="45" rx="170" ry="15" style="fill:#3a8ff2" />
+					</svg>
+					<p></p>
+				</div>
+			</main>
+			<footer class="clearfix">
+				<span>&copy;All rights reserved</span>
+				<a href="http://webacademy.bg" target="_blank" class="floting">Web Academy</a>
+			</footer>										
+		</div>
+		<script>
+			var message = [
+				['Бай Иван', 'Жули ракийка и си пита ушите', '2017-04-08', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1],
+				['Джон Доу', 'Въобще не знае, какво прави', '2017-04-08', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 0],
+				['Джоана Доу', 'Си прави селфита и чупи стойки', '2017-04-08', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 1]
+			];
+			function saveMsg(){
+				var emailSender = $("#senderName").val();
+				var emailAbout = $("#about").val();
+				var emailDate = $("#date").val();
+				var emailMsg = $("#emailMsg").val();
+				if(emailSender == '' || emailAbout == '' || emailDate == '' || emailMsg == ''){
+					alert('Всички полета са задължителни');
+				} else {
+					var newEmail = [emailSender, emailAbout, emailDate, emailMsg, 1];
+					message.push(newEmail);
+				}
+				renderMessage();
+			}
+			
+			function renderMessage() {
+				var tmp = '<table class="firstTable" id="messageTable"><caption>Таблица със съобщения</caption>';
+				tmp += '<tr><th>&nbsp;</th><th>Подател</th><th>Относно</th><th>Прочетено</th><th><input type="button" value="Изтрий" onclick="deleteCheckedRows();"/></th></tr>';
+				for(i=0; i < message.length; i++){
+					if(message[i][4] == 1){
+						tmp += '<tr class="unread" id="msg' + i + '" data-key="' + i + '"><td><input type="button" value="виж" onclick="showMsgInfo(' + i + ');" /></td>';
+						tmp += '<td>' + message[i][0] + '</td><td>' + message[i][1] + '</td><td id="seenMsg' + i + '">Не</td>';
+						tmp += '<td><input type="checkbox" /></td></tr>';
+					}
+				}
+				tmp += '</table>';
+				$("#inbox").html(tmp);
+				$("#inbox").addClass("secondTable");
+			}
+			renderMessage();
+			
+			function deleteCheckedRows(){
+				var deletedRows = $("input:checkbox:checked").map(function(){
+					return $(this).closest("tr").data("key");
+				}).get();
+				console.log(deletedRows);
+				for(i = 0; i < deletedRows.length; i++ ){
+					var keyToMsgArray = deletedRows[i] - i;
+					message.splice(keyToMsgArray, 1);
+				}
+				renderMessage();
+			}
+			
+			function showMsgInfo( i ){
+				var trId = '#msg' + i;
+				var seenMsg = '#seenMsg' + i;
+				var tmp = '<table class="firstTable" id="messageTableFullInfo"><caption>Преглед на съобщение</caption>';
+				$(trId).removeClass("unread");
+				$(seenMsg).text("Да");
+				tmp += '<tr><td>Изпратено от: ' + message[i][0] + ', ' + message[i][2] + '</td><td rowspan="2"><input type="button" id="copyButton" data-array-key="' + i + '" value="Копирай" /></td></tr>'
+				tmp += '<tr><td>Относно: ' + message[i][1] +  '</td></tr>';
+				tmp += '<tr><td colspan="2">' + message[i][3] + '</td></tr>';
+				tmp += '</table>';
+				$("#fullMsg").html(tmp);
+				$("#fullMsg").addClass("viewFullMsg");
+			}
+			function showAllMsgs(){
+				for(i=0; i < message.length; i++){
+					message[i][4] = 1;
+				}
+				renderMessage();
+			}
+
+			function saveMsgsToLocal(){
+				if (typeof(Storage) !== "undefined") {
+					localStorage.lastVersionOfMsgs = JSON.stringify(message);
+				} else {
+					alert("Не можеш да използваш тази функция. Трябва да си обновиш браузъра");
+				}
+			}
+			
+			function getLastSaveMsgs(){
+				if (typeof(Storage) !== "undefined") {
+					message = JSON.parse(localStorage.lastVersionOfMsgs);
+					renderMessage();
+				} else {
+					alert("Не можеш да използваш тази функция. Трябва да си обновиш браузъра");
+				}
+			}
+	
+			$(document).on("click",'#copyButton', function (){
+				var msgId = $(this).data("array-key");
+				var toBeSave = message[parseInt(msgId)];
+				if (typeof(Storage) !== "undefined") {
+					localStorage.copiedEmail = toBeSave.join("||");
+					//console.log(toBeSave.join("||"));
+				} else {
+					alert("Не можеш да използваш тази функция. Трябва да си обновиш браузъра");
+				}
+			});
+			$(document).on("click",'#pasteCopiedMsg', function (){
+				if (typeof(Storage) !== "undefined") {
+					var savedTemplate = localStorage.getItem("copiedEmail");
+					savedTemplate = savedTemplate.split("||");
+					console.log(savedTemplate);
+					$("#senderName").val(savedTemplate[0]);
+					$("#about").val(savedTemplate[1]);
+					$("#emailMsg").val(savedTemplate[3]);
+					$("#date").val(savedTemplate[2]);
+				} else {
+					alert("Не можеш да използваш тази функция. Трябва да си обновиш браузъра");
+				}
+			});
+			// $(document).ready(function(){
+			// 	$("table").addClass("secondTable");
+			// });
+		</script>
+	</body>
+</html>
